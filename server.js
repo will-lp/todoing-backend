@@ -9,14 +9,20 @@ app.use(cors());
 app.get('/:listId', (req, res) => {
   console.log(`listId received: '${req.params.listId}'`);
   res.send(JSON.stringify(database[req.params.listId]));
-})
+});
+
+
+app.post('/:listId', (req, res) => { 
+  console.log(req); 
+  res.send('ok');
+});
 
 
 let port = 3001;
 app.listen(port, () => console.log(`Server started on port ${port}`));
 
 let database = {
-  echo : [
+  'con-67' : [
     {
       id: 1,
       title: "lista 1",
