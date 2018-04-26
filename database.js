@@ -30,15 +30,12 @@ let database = {
   saveItem(listId, sublistId, item) {
     let sublist = this.repo[listId].find(sublist => sublist.id === sublistId);
     
-    console.log(`sublist ${sublistId}`, sublist);
-    console.log('saving item', item);
-    
     if (!item.id) {
       item.id = this.generateId();
       sublist.items.push(item);
     }
     else {
-      let index = sublist.items.findIndex(i => { console.log('procurando', typeof(i.id), i.id, typeof(item.id), item.id); return i.id === item.id });
+      let index = sublist.items.findIndex(i => i.id === item.id);
       sublist.items[index] = item;
     }
     
@@ -68,6 +65,13 @@ let database = {
       list = this.repo[listId] = [];
     }
     return list;
+  },
+  
+  
+  countOpenItems(listId) {
+    let list = this.getList(listId);
+    return list ? list
+      .reduce((count, sublist) => sublist.items.filter(item => !item.checked).length + count, 0) : 0;
   }
 }
 

@@ -40,6 +40,13 @@ app.post('/:listId/:sublistId', (req, res) => {
 });
 
 
+app.get('/:listId/countOpenItems', (req, res) => {
+  let listId = req.params.listId;
+  console.log(`post ${listId}/countOpenItems: `); 
+  
+  res.send(200, database.countOpenItems(listId));
+})
+
 
 let port = 3001;
 app.listen(port, () => console.log(`Server started on port ${port}`));
