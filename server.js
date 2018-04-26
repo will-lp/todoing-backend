@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 
-const database = require('./database');
+const database = require('./file-database');
 
 app.use(bodyParser.json());
 app.use(cors());
