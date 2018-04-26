@@ -1,44 +1,47 @@
 const express = require('express');
 const cors = require('cors');
-
+const bodyParser = require('body-parser');
 const app = express();
 
+const database = require('./database');
+
+app.use(bodyParser.json());
 app.use(cors());
 
 
 app.get('/:listId', (req, res) => {
-  console.log(`listId received: '${req.params.listId}'`);
-  res.send(JSON.stringify(database[req.params.listId]));
+  let listId = req.params.listId.toUpperCase();
+  console.log(`get ${listId}`);
+  
+  let list = database.getList(listId);
+  
+  res.send(JSON.stringify(list));
 });
 
 
 app.post('/:listId', (req, res) => { 
-  console.log(req); 
-  res.send('ok');
+  let listId = req.params.listId;
+  console.log(`post ${listId}: `, req.body); 
+  
+  let sublist = database.saveSublist(listId, req.body);
+  
+  res.send(JSON.stringify(sublist));
 });
+
+
+app.post('/:listId/:sublistId', (req, res) => { 
+  let listId = req.params.listId;
+  let sublistId = req.params.sublistId;
+  console.log(`post ${listId}/${sublistId}: `, req.body); 
+  
+  let item = database.saveItem(listId, parseInt(sublistId), req.body);
+  
+  res.send(JSON.stringify(item));
+});
+
 
 
 let port = 3001;
 app.listen(port, () => console.log(`Server started on port ${port}`));
 
-let database = {
-  'con-67' : [
-    {
-      id: 1,
-      title: "lista 1",
-      items: [
-        { id: 11, checked: false, text: 'item 1.1' },
-        { id: 12, checked: false, text: 'item 1.2' },
-        { id: 13, checked: true,  text: 'item 1.3' },
-        { id: 14, checked: false, text: 'item 1.4' },
-      ]
-    }, {
-      id: 2,
-      title: "lista 2",
-      items: [
-        { id: 21, checked: false, text: 'item 2.1' },
-        { id: 22, checked: false, text: 'item 2.2' },
-      ]
-    }
-  ]
-}
+
