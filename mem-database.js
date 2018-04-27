@@ -1,10 +1,10 @@
 let database = {
 
   repo : {
-    'CON-67' : [
+    'list 1' : [
       {
         id: 1,
-        title: "lista 1",
+        title: "sublist 1",
         items: [
           { id: 11, checked: false, text: 'item 1.1' },
           { id: 12, checked: false, text: 'item 1.2' },
@@ -13,7 +13,7 @@ let database = {
         ]
       }, {
         id: 2,
-        title: "lista 2",
+        title: "sublist 2",
         items: [
           { id: 21, checked: false, text: 'item 2.1' },
           { id: 22, checked: false, text: 'item 2.2' },
