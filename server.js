@@ -29,7 +29,7 @@ app.post('/:listId', (req, res) => {
 });
 
 
-app.post('/:listId/:sublistId', (req, res) => { 
+app.post('/:listId/:sublistId/saveItem', (req, res) => { 
   let listId = req.params.listId;
   let sublistId = req.params.sublistId;
   console.log(`post ${listId}/${sublistId}: `, req.body); 
